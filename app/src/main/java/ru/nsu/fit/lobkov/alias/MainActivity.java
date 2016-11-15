@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onPlayButtonClicked(View v) {
-        Intent intent = new Intent(this, CommandsActivity.class);
+        Intent intent = new Intent(this, TeamActivity.class);
         startActivity(intent);
     }
 }

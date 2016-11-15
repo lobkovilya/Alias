@@ -16,9 +16,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CommandsActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize">
-        </activity>
+            android:name=".TeamActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>
