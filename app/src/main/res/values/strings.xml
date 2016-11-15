@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Alias</string>
+    <string name="welcome_text">Welcome to Alias</string>
+    <string name="default_command_text">Command name</string>
+    <string name="new_command_btn">New command</string>
+    <string name="next_btn">Next</string>
+</resources>
