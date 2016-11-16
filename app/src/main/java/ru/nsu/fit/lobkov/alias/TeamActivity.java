@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 
 public class TeamActivity extends AppCompatActivity {
-    public final static String GAME_MODEL = "GameModel";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +20,7 @@ public class TeamActivity extends AppCompatActivity {
         GameModel model = new GameModel(firstTeamEditText.getText().toString(),
                                         secondTeamEditText.getText().toString());
         Intent intent = new Intent(this, ResultActivity.class);
-        intent.putExtra(GAME_MODEL, model);
+        intent.putExtra(GameModel.GAME_MODEL_TAG, model);
         startActivity(intent);
     }
 }

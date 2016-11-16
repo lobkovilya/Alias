@@ -3,6 +3,7 @@ package ru.nsu.fit.lobkov.alias;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,8 +15,8 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         Intent intent = getIntent();
-        if (intent.hasExtra(TeamActivity.GAME_MODEL)) {
-            gameModel = (GameModel)intent.getSerializableExtra(TeamActivity.GAME_MODEL);
+        if (intent.hasExtra(GameModel.GAME_MODEL_TAG)) {
+            gameModel = (GameModel)intent.getSerializableExtra(GameModel.GAME_MODEL_TAG);
         }
 
         TextView rounds = (TextView)findViewById(R.id.roundTextView);
@@ -27,5 +28,11 @@ public class ResultActivity extends AppCompatActivity {
         currentTeam.setText("Next move: " + gameModel.getCurrentTeam());
         firstTeamResult.setText(gameModel.getFirstTeamName() + ": " + gameModel.getFirstTeamPoints());
         secondTeamResult.setText(gameModel.getSecondTeamName() + ": " + gameModel.getSecondTeamPoints());
+    }
+
+    public void onStartBtnClicked(View v) {
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(GameModel.GAME_MODEL_TAG, gameModel);
+        startActivity(intent);
     }
 }
