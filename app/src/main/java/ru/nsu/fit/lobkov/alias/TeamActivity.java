@@ -17,10 +17,13 @@ public class TeamActivity extends AppCompatActivity {
         EditText firstTeamEditText = (EditText)findViewById(R.id.firstTeamEditText);
         EditText secondTeamEditText = (EditText)findViewById(R.id.secondTeamEditText);
 
-        GameModel model = new GameModel(firstTeamEditText.getText().toString(),
-                                        secondTeamEditText.getText().toString());
+
+        GameModel model = GameModel.getInstance();
+        model.setFirstTeamName(firstTeamEditText.getText().toString());
+        model.setSecondTeamName(secondTeamEditText.getText().toString());
+
         Intent intent = new Intent(this, ResultActivity.class);
-        intent.putExtra(GameModel.GAME_MODEL_TAG, model);
+//        intent.putExtra(GameModel.GAME_MODEL_TAG, model);
         startActivity(intent);
     }
 }

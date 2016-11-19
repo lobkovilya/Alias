@@ -3,11 +3,12 @@ package ru.nsu.fit.lobkov.alias;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity implements GameModel.GameEndsHandler {
     private GameModel gameModel;
 
     @Override
@@ -15,10 +16,12 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         Intent intent = getIntent();
-        if (intent.hasExtra(GameModel.GAME_MODEL_TAG)) {
-            gameModel = (GameModel)intent.getSerializableExtra(GameModel.GAME_MODEL_TAG);
-        }
-
+//        if (intent.hasExtra(GameModel.GAME_MODEL_TAG)) {
+//            gameModel = (GameModel)intent.getSerializableExtra(GameModel.GAME_MODEL_TAG);
+//        }
+        gameModel = GameModel.getInstance();
+        gameModel.setGameEndsHandler(this);
+        gameModel.changeTurn();
         TextView rounds = (TextView)findViewById(R.id.roundTextView);
         TextView currentTeam = (TextView)findViewById(R.id.currentTeamTextView);
         TextView firstTeamResult = (TextView)findViewById(R.id.firstTeamResultTextView);
@@ -32,7 +35,15 @@ public class ResultActivity extends AppCompatActivity {
 
     public void onStartBtnClicked(View v) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(GameModel.GAME_MODEL_TAG, gameModel);
+//        intent.putExtra(GameModel.GAME_MODEL_TAG, gameModel);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onGameEnds(String winner) {
+        Log.v("TAG", "onGameEnds!!!");
+        Intent intent = new Intent(this, WinnerActivity.class);
+        intent.putExtra("winner", winner);
         startActivity(intent);
     }
 }
