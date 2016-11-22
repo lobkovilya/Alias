@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity implements GameModel.GameEndsHandler {
     private GameModel gameModel;
+    private boolean changedTurn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,10 @@ public class ResultActivity extends AppCompatActivity implements GameModel.GameE
         gameModel = GameModel.getInstance();
         gameModel.setGameEndsHandler(this);
 //        gameModel.prepareToNewGame(this);
-        gameModel.changeTurn();
+        if (!changedTurn) {
+            gameModel.changeTurn();
+            changedTurn = true;
+        }
         TextView rounds = (TextView)findViewById(R.id.roundTextView);
         TextView currentTeam = (TextView)findViewById(R.id.currentTeamTextView);
         TextView firstTeamResult = (TextView)findViewById(R.id.firstTeamResultTextView);
@@ -46,5 +50,17 @@ public class ResultActivity extends AppCompatActivity implements GameModel.GameE
         Intent intent = new Intent(this, WinnerActivity.class);
         intent.putExtra("winner", winner);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("changed", changedTurn);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        changedTurn = savedInstanceState.getBoolean("changed");
     }
 }

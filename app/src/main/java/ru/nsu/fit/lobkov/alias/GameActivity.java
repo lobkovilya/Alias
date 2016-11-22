@@ -23,8 +23,9 @@ public class GameActivity extends AppCompatActivity implements
     private Timer timer = new Timer();
     private SecondsHolder secondsHolder = new SecondsHolder();
     private class SecondsHolder {
-        Integer seconds = 5;
+        Integer seconds = 10;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class GameActivity extends AppCompatActivity implements
         pointsView = (TextView)findViewById(R.id.pointsTextView);
         timerView = (TextView)findViewById(R.id.timerTextView);
         pointsView.setText("Points: " + gameModel.getCurrentTeamPoints());
-        gameModel.nextWord();
+        wordView.setText(gameModel.getCurrentWord());
         timer.schedule(new Task(), 0, 1000);
     }
 
@@ -70,6 +71,19 @@ public class GameActivity extends AppCompatActivity implements
 
     public void onNextWordBtnClicked(View v) {
         gameModel.nextWord();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("seconds", secondsHolder.seconds);
+        timer.cancel();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        secondsHolder.seconds = savedInstanceState.getInt("seconds");
     }
 
     @Override

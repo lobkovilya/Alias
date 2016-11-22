@@ -6,4 +6,5 @@ package ru.nsu.fit.lobkov.alias;
 
 public interface DataGetter {
     String getNextWord();
+    String getCurrentWord();
 }

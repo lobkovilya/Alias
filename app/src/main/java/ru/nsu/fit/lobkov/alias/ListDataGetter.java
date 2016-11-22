@@ -19,4 +19,9 @@ public class ListDataGetter implements DataGetter {
         }
         return wordList.get(cursor);
     }
+
+    @Override
+    public String getCurrentWord() {
+        return wordList.get(cursor);
+    }
 }

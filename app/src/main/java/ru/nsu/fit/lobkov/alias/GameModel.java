@@ -76,6 +76,14 @@ public class GameModel implements Serializable{
         }
     }
 
+    public String getNextTeam() {
+        if (currentTeam == Team.SECOND_TEAM) {
+            return firstTeamName;
+        } else {
+            return secondTeamName;
+        }
+    }
+
     public int getCurrentTeamPoints() {
         return pointMap.get(currentTeam);
     }
@@ -105,7 +113,10 @@ public class GameModel implements Serializable{
         if (wordChangedHandler != null) {
             wordChangedHandler.onWordChanged(dataGetter.getNextWord());
         }
+    }
 
+    public String getCurrentWord() {
+        return dataGetter.getCurrentWord();
     }
 
     public void changeTurn() {

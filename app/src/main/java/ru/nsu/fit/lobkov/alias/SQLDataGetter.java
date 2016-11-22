@@ -35,11 +35,16 @@ public class SQLDataGetter implements DataGetter {
     }
     @Override
     public String getNextWord() {
-        String word = cursor.getString(cursor.getColumnIndex(DictionaryHelper.WORD));
         if (!cursor.moveToNext()) {
             cursor.moveToFirst();
         }
+        String word = cursor.getString(cursor.getColumnIndex(DictionaryHelper.WORD));
         return word;
+    }
+
+    @Override
+    public String getCurrentWord() {
+        return cursor.getString(cursor.getColumnIndex(DictionaryHelper.WORD));
     }
 
     private class DictionaryHelper extends SQLiteOpenHelper {
