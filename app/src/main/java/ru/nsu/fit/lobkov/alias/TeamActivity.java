@@ -21,6 +21,7 @@ public class TeamActivity extends AppCompatActivity {
         GameModel model = GameModel.getInstance();
         model.setFirstTeamName(firstTeamEditText.getText().toString());
         model.setSecondTeamName(secondTeamEditText.getText().toString());
+        model.prepareToNewGame(this);
 
         Intent intent = new Intent(this, ResultActivity.class);
 //        intent.putExtra(GameModel.GAME_MODEL_TAG, model);

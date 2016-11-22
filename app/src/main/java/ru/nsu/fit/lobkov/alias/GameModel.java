@@ -1,25 +1,19 @@
 package ru.nsu.fit.lobkov.alias;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Lobkov on 16.11.2016.
  */
 
 public class GameModel implements Serializable{
-    public final static String GAME_MODEL_TAG = "game_model";
     private String firstTeamName;
     private String secondTeamName;
-    private ArrayList<String> wordList = new ArrayList<>(Arrays.asList("hello", "world", "planet", "war", "stone", "android"));
-    private int cursor = 0;
 
     private Map<Team, Integer> pointMap = new HashMap<>();
 
@@ -30,6 +24,8 @@ public class GameModel implements Serializable{
     private WordChangedHandler wordChangedHandler = null;
     private PointsChangedHandler pointsChangedHandler = null;
     private GameEndsHandler gameEndsHandler = null;
+
+    private DataGetter dataGetter;
 
     public static class GameModelHolder {
         public static final GameModel HOLDER_INSTANCE = new GameModel();
@@ -106,13 +102,10 @@ public class GameModel implements Serializable{
     }
 
     public void nextWord() {
-        ++cursor;
-        if (cursor == wordList.size()) {
-            cursor = 0;
-        }
         if (wordChangedHandler != null) {
-            wordChangedHandler.onWordChanged(wordList.get(cursor));
+            wordChangedHandler.onWordChanged(dataGetter.getNextWord());
         }
+
     }
 
     public void changeTurn() {
@@ -137,7 +130,8 @@ public class GameModel implements Serializable{
         }
     }
 
-    public void prepareToNewGame() {
+    public void prepareToNewGame(Context ctx) {
+        dataGetter = new SQLDataGetter(ctx);
         currentRound = 0;
         currentTeam = Team.SECOND_TEAM;
         pointMap.put(Team.FIRST_TEAM, 0);

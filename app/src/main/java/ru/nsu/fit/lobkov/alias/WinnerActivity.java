@@ -22,7 +22,7 @@ public class WinnerActivity extends AppCompatActivity {
 
     public void onNewGameClicked(View v) {
         GameModel gameModel = GameModel.getInstance();
-        gameModel.prepareToNewGame();
+//        gameModel.prepareToNewGame();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

@@ -21,6 +21,7 @@ public class ResultActivity extends AppCompatActivity implements GameModel.GameE
 //        }
         gameModel = GameModel.getInstance();
         gameModel.setGameEndsHandler(this);
+//        gameModel.prepareToNewGame(this);
         gameModel.changeTurn();
         TextView rounds = (TextView)findViewById(R.id.roundTextView);
         TextView currentTeam = (TextView)findViewById(R.id.currentTeamTextView);
